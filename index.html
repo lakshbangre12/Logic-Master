@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LogicMaster | Learn Logic by Playing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="bg3d" aria-hidden="true"></canvas>
+<aside class="sidebar">
+<a class="brand" href="#" data-page="dashboard"><span class="brand-icon">∴</span><span>Logic<span class="brand-accent">Master</span></span></a>
+<p class="nav-label">LEARN</p>
+<button class="nav-item active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+<button class="nav-item" data-page="truth">▦ <span>Truth Tables</span></button>
+<button class="nav-item" data-page="equivalence">⇌ <span>Equivalence</span></button>
+<button class="nav-item" data-page="inference">∴ <span>Inference Rules</span></button>
+<button class="nav-item" data-page="proof">✎ <span>Proof Assistant</span></button>
+<p class="nav-label">PLAY</p>
+<button class="nav-item" data-page="challenges">⚡ <span>Challenge Mode</span></button>
+<div class="sidebar-bottom"><div class="mini-profile"><div class="avatar">L</div><div><strong>Logic Learner</strong><small>Level <span id="sideLevel">1</span> · <span id="sideName">Explorer</span></small></div></div></div>
+</aside>
+<main class="main-content">
+<header class="topbar"><div><p class="eyebrow">YOUR LEARNING SPACE</p><h1 id="pageTitle">Dashboard</h1></div>
+<div class="top-stats"><div class="top-stat"><span>🔥</span><div><strong id="streak">0</strong><small>Day streak</small></div></div><div class="top-stat"><span>⭐</span><div><strong id="xp">0 XP</strong><small>Total experience</small></div></div></div></header>
+
+<section class="page active" id="dashboard">
+<div class="welcome-card"><div class="welcome-copy"><span class="pill">YOUR LOGIC JOURNEY</span><h2>Think logically.<br><span>Level up.</span></h2><p>Master propositional logic one challenge at a time. Real truth tables, a live proof engine, and XP for every win.</p><button class="primary-btn" data-page="challenges">Start a challenge <span>→</span></button></div>
+<div class="hero-symbol" aria-hidden="true"><div class="logic-glyph">∴</div><canvas id="hero3d"></canvas></div></div>
+<div class="section-heading"><p class="eyebrow">YOUR PROGRESS</p><h2>Learning overview</h2></div>
+<div class="stats-grid">
+<article class="stat-card"><div class="stat-icon purple">✦</div><p>Total XP</p><h3 id="dashXP">0</h3><small>Earn XP by completing activities</small></article>
+<article class="stat-card"><div class="stat-icon orange">🔥</div><p>Day streak</p><h3 id="dashStreak">0 days</h3><small>Keep your learning going</small></article>
+<article class="stat-card"><div class="stat-icon green">✓</div><p>Challenges completed</p><h3 id="completed">0</h3><small>Correctly completed challenges</small></article>
+<article class="stat-card"><div class="stat-icon blue">♜</div><p>Current level</p><h3 id="dashLevel">Level 1</h3><small id="nextLevel">Explorer</small><div class="bar"><i id="bar"></i></div></article></div>
+<div class="section-heading"><p class="eyebrow">ACHIEVEMENTS</p><h2>Badges</h2></div><div class="badges" id="badges"></div>
+<div class="section-heading"><p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p><h2>Explore logic tools</h2></div>
+<div class="tools-grid">
+<button class="tool-card" data-page="truth"><span class="tool-icon purple">▦</span><span class="tool-title">Truth Tables</span><span class="tool-desc">Evaluate any expression and see every subformula across every assignment.</span><span class="tool-link">Open tool →</span></button>
+<button class="tool-card" data-page="equivalence"><span class="tool-icon blue">⇌</span><span class="tool-title">Equivalence</span><span class="tool-desc">Compare propositions and get counterexamples when they differ.</span><span class="tool-link">Open tool →</span></button>
+<button class="tool-card" data-page="inference"><span class="tool-icon green">∴</span><span class="tool-title">Inference Rules</span><span class="tool-desc">Test validity and auto-detect Modus Ponens, Modus Tollens and more.</span><span class="tool-link">Open tool →</span></button>
+<button class="tool-card" data-page="proof"><span class="tool-icon orange">✎</span><span class="tool-title">Proof Assistant</span><span class="tool-desc">Give premises and a goal; get a justified step-by-step derivation.</span><span class="tool-link">Open tool →</span></button></div>
+</section>
+
+<section class="page" id="truth"><div class="panel"><h2>Truth Table Generator</h2>
+<p>Use <code>!P</code> NOT, <code>P & Q</code> AND, <code>P | Q</code> OR, <code>P -> Q</code> implies, <code>P <-> Q</code> iff. Symbols ¬ ∧ ∨ → ↔ work too.</p>
+<form id="truthForm"><label for="truthExpression">Logical expression</label><input id="truthExpression" placeholder="e.g. (P -> Q) & P" required autocomplete="off"><button class="primary-btn">Generate truth table →</button></form><div id="truthResult" class="result-area"></div></div></section>
+
+<section class="page" id="equivalence"><div class="panel"><h2>Logical Equivalence</h2><p>Check whether two expressions have the same truth value under every assignment.</p>
+<form id="equivalenceForm"><label for="expressionA">First expression</label><input id="expressionA" placeholder="e.g. P -> Q" required autocomplete="off"><label for="expressionB">Second expression</label><input id="expressionB" placeholder="e.g. !P | Q" required autocomplete="off"><button class="primary-btn">Compare expressions →</button></form><div id="equivalenceResult" class="result-area"></div></div></section>
+
+<section class="page" id="inference"><div class="panel"><h2>Inference Rules</h2><p>Check a conclusion against up to two premises. Valid arguments are matched to a named rule.</p>
+<form id="inferenceForm"><label for="premiseA">Premise 1</label><input id="premiseA" placeholder="e.g. P -> Q" required autocomplete="off"><label for="premiseB">Premise 2 (optional)</label><input id="premiseB" placeholder="e.g. P" autocomplete="off"><label for="conclusion">Conclusion</label><input id="conclusion" placeholder="e.g. Q" required autocomplete="off"><button class="primary-btn">Check inference →</button></form><div id="inferenceResult" class="result-area"></div></div></section>
+
+<section class="page" id="proof"><div class="panel"><h2>Proof Assistant</h2><p>Enter premises and a goal. The engine chains Modus Ponens/Tollens, Disjunctive and Hypothetical Syllogism, Simplification, Double Negation and more.</p>
+<form id="proofForm"><label for="proofPremises">Premises (one per line)</label><textarea id="proofPremises" rows="4" placeholder="P -> Q&#10;P" required></textarea><label for="proofGoal">Goal</label><input id="proofGoal" placeholder="Q" required autocomplete="off"><button class="primary-btn">Build proof →</button></form><div id="proofResult" class="result-area"></div></div></section>
+
+<section class="page" id="challenges">
+<div class="challenge-banner"><span class="pill">PRACTICE • EARN XP</span><h2>Ready to test your logic?</h2><p>Endless generated questions. Chain correct answers for bonus XP.</p></div>
+<div class="section-heading"><p class="eyebrow">YOUR NEXT STEP</p><h2>Choose your training</h2></div>
+<div class="tools-grid" style="margin-bottom:20px">
+<button class="tool-card" data-challenge="truth"><span class="tool-icon purple">▦</span><span class="tool-title">Truth Table Practice</span><span class="tool-desc">Classify an expression as a tautology, contradiction, or contingency.</span><span class="tool-link">Practice →</span></button>
+<button class="tool-card" data-challenge="inference"><span class="tool-icon green">∴</span><span class="tool-title">Inference Challenge</span><span class="tool-desc">Use premises to identify the one valid conclusion.</span><span class="tool-link">Practice →</span></button>
+<button class="tool-card" data-challenge="proof"><span class="tool-icon orange">✎</span><span class="tool-title">Rule Spotting</span><span class="tool-desc">Name the inference rule that justifies each step.</span><span class="tool-link">Practice →</span></button><button class="tool-card" data-challenge="table"><span class="tool-icon blue">▦</span><span class="tool-title">Table Builder</span><span class="tool-desc">Fill in the truth table yourself, cell by cell. Check and fix until it is perfect.</span><span class="tool-link">Play →</span></button><button class="tool-card" data-challenge="speed"><span class="tool-icon orange">⚡</span><span class="tool-title">Speed Round</span><span class="tool-desc">60 seconds, 3 lives. Correct answers add time, mistakes cost it. Chase a high score.</span><span class="tool-link">Play →</span></button><button class="tool-card" data-challenge="switch"><span class="tool-icon green">🎛</span><span class="tool-title">Switch Puzzle</span><span class="tool-desc">Flip the P, Q, R switches until the formula lights up. Fewer flips, more XP.</span><span class="tool-link">Play →</span></button><button class="tool-card" data-challenge="boss"><span class="tool-icon purple">⚔</span><span class="tool-title">Boss Battle</span><span class="tool-desc">Bosses attack with arguments. Counter each with the right rule card or call the fallacy.</span><span class="tool-link">Fight →</span></button><button class="tool-card" data-challenge="fall"><span class="tool-icon blue">☄</span><span class="tool-title">Falling Formulas</span><span class="tool-desc">Formulas rain down. Tag each one before it hits the floor. Keys 1, 2, 3 work too.</span><span class="tool-link">Play →</span></button></div>
+<div class="panel" id="cbox" hidden><span class="pill" id="ctype"></span><div class="hud" id="hud" hidden><b id="lives"></b><b id="score"></b><b id="tleft"></b><div class="tbar"><i id="tfill"></i></div></div><h3 id="cq"></h3><div class="answer-options" id="copts"></div><div id="ctable" class="result-area"></div><button class="primary-btn" id="ccheck" hidden>Check table ✓</button><p class="feedback" id="cfb" aria-live="polite"></p><button class="primary-btn" id="cnext" hidden>Next question →</button></div>
+<div class="panel"><h3 style="margin-top:0">Quick challenge</h3><p>If P → Q is true and P is true, what follows?</p>
+<div class="answer-options"><button class="answer-btn" data-answer="P">P</button><button class="answer-btn" data-answer="Q">Q</button><button class="answer-btn" data-answer="!Q">¬Q</button></div><p id="quickFeedback" class="feedback" aria-live="polite"></p></div>
+</section>
+<footer>LogicMaster <span style="color:var(--p)">•</span> Learn logic by playing.</footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
